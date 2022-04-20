@@ -4,11 +4,86 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js">
+    </script><script nomodule=""src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
     <title>BuzzQuizz</title>
 </head>
 <body>
+    <div class="topbar">
+        <h1>BuzzQuizz</h1>
+    </div>
+    <div class="content">
+
+        <div class="userQuizzesEmpty">
+            <div>
+                <p>Você não criou nenhum</p>
+                <p>quizz ainda :(</p>
+                <div onclick="createNewQuizz()" class="button">
+                    <h1>Criar Quizz</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="userQuizzesFilled hidden">
+            <div>
+                <h3>Seus Quizzes</h3>
+                <ion-icon onclick="createNewQuizz()" name="add-circle-sharp"></ion-icon>
+            </div>
+            <div class="Quizzes">
+                <div class="Quizz">
+                    <img src="https://disneyplusbrasil.com.br/wp-content/uploads/2022/02/Os-Simpsons-Star-Plus-750x422.jpg" alt="quizz image">
+                    <div>
+                        <h1>This is a very very very very very very very very very very very very long quizz title.</h1>
+                    </div>
+                </div>
+                <div class="Quizz">
+                    <img src="https://disneyplusbrasil.com.br/wp-content/uploads/2022/02/Os-Simpsons-Star-Plus-750x422.jpg" alt="quizz image">
+                    <div>
+                        <h1>quizz title</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="AllQuizzes">
+            <h3>Todos os Quizzes</h3>
+            <div class="Quizzes">
+                <div class="Quizz">
+                    <img src="https://disneyplusbrasil.com.br/wp-content/uploads/2022/02/Os-Simpsons-Star-Plus-750x422.jpg" alt="quizz image">
+                    <div>
+                        <h1>quizz title</h1>
+                    </div>
+                </div>
+                <div class="Quizz">
+                    <img src="https://disneyplusbrasil.com.br/wp-content/uploads/2022/02/Os-Simpsons-Star-Plus-750x422.jpg" alt="quizz image">
+                    <div>
+                        <h1>quizz title</h1>
+                    </div>
+                </div>
+                <div class="Quizz">
+                    <img src="https://disneyplusbrasil.com.br/wp-content/uploads/2022/02/Os-Simpsons-Star-Plus-750x422.jpg" alt="quizz image">
+                    <div>
+                        <h1>quizz title</h1>
+                    </div>
+                </div>
+                <div class="Quizz">
+                    <img src="https://disneyplusbrasil.com.br/wp-content/uploads/2022/02/Os-Simpsons-Star-Plus-750x422.jpg" alt="quizz image">
+                    <div>
+                        <h1>quizz title</h1>
+                    </div>
+                </div>
+                <div class="Quizz">
+                    <img src="https://disneyplusbrasil.com.br/wp-content/uploads/2022/02/Os-Simpsons-Star-Plus-750x422.jpg" alt="quizz image">
+                    <div>
+                        <h1>quizz title</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
