@@ -151,3 +151,167 @@ function renderClickedQuizz(element) {
 // }
 
 getQuizzes();
+
+
+// //arr.sort(randomNumber)
+// let THIS_QUIZZ = {}; //array com o quizz escolhido/atual
+
+// loadQuizz();
+
+// function randomNumber() { 
+// 	return Math.random() - 0.5; 
+// }
+
+// function loadQuizz(){
+//     const promise = axios.get(`${API}/quizzes/`);
+//     //console.log(promise);
+//     promise.then(renderQuizz);
+// }
+
+// function renderQuizz(response){
+//     const quizz_page = document.querySelector("aside");
+//     quizz_page.innerHTML="";
+//     THIS_QUIZZ=response.data;
+//     //console.log(THIS_QUIZZ);
+//     quizz_page.innerHTML = secondScreen(response);
+// }
+
+// // secondScreen();
+// // THIS_QUIZ.questions= [
+// // 		{
+// // 			title: "Título da pergunta 1",
+// // 			color: "#123456",
+// // 			answers: [
+// // 				{
+// // 					text: "Texto da resposta 1",
+// // 					image: "https://http.cat/411.jpg",
+// // 					isCorrectAnswer: true
+// // 				},
+// // 				{
+// // 					text: "Texto da resposta 2",
+// // 					image: "https://http.cat/412.jpg",
+// // 					isCorrectAnswer: false
+// // 				}
+// // 			]
+// // 		},
+// // 		{
+// // 			title: "Título da pergunta 2",
+// // 			color: "#123456",
+// // 			answers: [
+// // 				{
+// // 					text: "Texto da resposta 1",
+// // 					image: "https://http.cat/411.jpg",
+// // 					isCorrectAnswer: true
+// // 				},
+// // 				{
+// // 					text: "Texto da resposta 2",
+// // 					image: "https://http.cat/412.jpg",
+// // 					isCorrectAnswer: false
+// // 				}
+// // 			]
+// // 		},
+// // 		{
+// // 			title: "Título da pergunta 3",
+// // 			color: "#123456",
+// // 			answers: [
+// // 				{
+// // 					text: "Texto da resposta 1",
+// // 					image: "https://http.cat/411.jpg",
+// // 					isCorrectAnswer: true
+// // 				},
+// // 				{
+// // 					text: "Texto da resposta 2",
+// // 					image: "https://http.cat/412.jpg",
+// // 					isCorrectAnswer: false
+// // 				}
+// // 			]
+// // 		}
+// // 	];
+
+
+// function secondScreen(){
+//     console.log(THIS_QUIZZ);
+//     const this_quizzes = THIS_QUIZZ.questions.map(mapFunction);
+
+//     function mapFunction(question){
+//         return Question(question);
+//     }
+
+//     console.log("this_quizzes");
+//     console.log(this_quizzes);
+
+//     return `
+//         <div class="banner">
+//             <img src="${THIS_QUIZZ.image}" alt="${THIS_QUIZZ.title}">
+//             <div class="img_bgd"></div>
+//             <p class="title">${THIS_QUIZZ.title}</p>
+//         </div>
+//         <div class="questions">
+//         ${this_quizzes.join("")}
+//         </div>
+//     `
+// }
+
+// function Question(question){
+//     question.answers.sort(randomNumber);
+//     const answers = question.answers.map(mapFunction);
+
+//     function mapFunction(answer){
+//         return Answer(answer);
+//     }
+
+//     return `
+//                 <div class="question" data-id="question">
+//                     <div class="title">
+//                         ${question.title}
+//                     </div>
+//                     <div class="answers">
+//                         ${answers.join("")}
+//                     </div>
+    
+//                 </div>
+//     `;
+// }
+
+// function Answer(answer){
+//     // console.log("answer");
+//     // console.log(answer);
+//     let type_answer = "";
+
+//     if (answer.isCorrectAnswer){
+//         type_answer="correctTrue";
+//     }else{
+//         type_answer="correctFalse";
+//     }
+
+//     return `
+//     <div class="answer ${type_answer}" data-id="answer" onclick="Answered(this,${answer.isCorrectAnswer})">
+//         <img src="${answer.image}">
+//         <div class="text">${answer.text}</div>
+//     </div>
+//     `;
+// }
+
+
+// function Answered(element,isCorrectAnswer){
+//     const answers_arr = element.parentNode;
+//     answers_arr.classList.add("answered");
+//     console.log("answers_arr");
+//     console.log(answers_arr);
+//     opacityWrongAnswers(answers_arr,element);
+//     console.log(isCorrectAnswer);
+// }
+
+// function opacityWrongAnswers(answers_arr,element){
+//     const answers = answers_arr.querySelectorAll(".answer");
+//     console.log(answers);
+    
+//     for (let i=0; i<answers.length ; i++){
+//         const answer = answers[i];
+//         if (answer !== element ){
+//             answer.classList.add("whitish");
+//         }
+//     }
+// }
+
+
