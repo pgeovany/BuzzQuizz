@@ -32,6 +32,10 @@ ion-icon:hover {
     color: #FFFFFF;
 }
 
+.logo:hover {
+    cursor: pointer;
+}
+
 .container {
     margin-top: calc(69px + 77px);
     margin-bottom: 69px;
