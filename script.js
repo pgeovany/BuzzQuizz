@@ -47,82 +47,92 @@ function renderClickedQuizz(element) {
     document.querySelector(".second_screen").innerHTML =
     `
     <div class="banner">
-        <img src="${quizz.image}" alt="banner_test">
-        <div class="img_bgd"></div>
-        <p class="title">${quizz.title}</p>
-    </div>
-    <div class="questions">
-        <div class="question">
-            <div class="title">
-                Em qual animal Olho-Tonto Moody transfigurou Malfoy?
-            </div>
-            <div class="answers">
-                <div class="answer">
-                    <img src="img/image1.png" alt="gatinho">
-                    <div class="text">
-                        Gatíneo
-                    </div>
-                </div>
-                <div class="answer">
-                    <img src="img/image2.png" alt="ratinho">
-                    <div class="text">
-                        Ratata
-                    </div>
-                </div>
-                <div class="answer">
-                    <img src="img/image3.png" alt="sapo">
-                    <div class="text">
-                        Sapo gordo
-                    </div>
-                </div>
-                <div class="answer">
-                    <img src="img/image4.png" alt="furao">
-                    <div class="text">
-                        Mustela putorius
-                    </div>
+    <img src="${quizz.image}" alt="banner_test">
+    <div class="img_bgd"></div>
+    <p class="title">${quizz.title}</p>
+</div>
+<div class="questions">
+    <div class="question">
+        <div class="title">
+            Em qual animal Olho-Tonto Moody transfigurou Malfoy?
+        </div>
+        <div class="answers">
+            <div class="answer">
+                <img src="img/image1.png" alt="gatinho">
+                <div class="text">
+                    Gatíneo
                 </div>
             </div>
+            <div class="answer">
+                <img src="img/image2.png" alt="ratinho">
+                <div class="text">
+                    Ratata
+                </div>
+            </div>
+            <div class="answer">
+                <img src="img/image3.png" alt="sapo">
+                <div class="text">
+                    Sapo gordo
+                </div>
+            </div>
+            <div class="answer">
+                <img src="img/image4.png" alt="furao">
+                <div class="text">
+                    Mustela putorius
+                </div>
+            </div>
+        </div>
 
+    </div>
+    <div class="question">
+        <div class="title">
+            Em qual animal Olho-Tonto Moody transfigurou Malfoy?
         </div>
-        <div class="question">
-            <div class="title">
-                Em qual animal Olho-Tonto Moody transfigurou Malfoy?
-            </div>
-            <div class="answers">
-                <div class="answer">
-                    <img src="img/image1.png" alt="gatinho">
-                    <div class="text">
-                        Gatíneo
-                    </div>
-                </div>
-                <div class="answer">
-                    <img src="img/image2.png" alt="ratinho">
-                    <div class="text">
-                        Gatíneo
-                    </div>
-                </div>
-                <div class="answer">
-                    <img src="img/image3.png" alt="sapo">
-                    <div class="text">
-                        Gatíneo
-                    </div>
-                </div>
-                <div class="answer">
-                    <img src="img/image4.png" alt="furao">
-                    <div class="text">
-                        Gatíneo
-                    </div>
+        <div class="answers">
+            <div class="answer">
+                <img src="img/image1.png" alt="gatinho">
+                <div class="text">
+                    Gatíneo
                 </div>
             </div>
+            <div class="answer">
+                <img src="img/image2.png" alt="ratinho">
+                <div class="text">
+                    Gatíneo
+                </div>
+            </div>
+            <div class="answer">
+                <img src="img/image3.png" alt="sapo">
+                <div class="text">
+                    Gatíneo
+                </div>
+            </div>
+            <div class="answer">
+                <img src="img/image4.png" alt="furao">
+                <div class="text">
+                    Gatíneo
+                </div>
+            </div>
+        </div>
 
-        </div>
-        <div class="nivel">
-            <div class="title">
-                88% de acerto: Você é praticamente um aluno de Hogwarts!
-            </div>
-            <img src="img/image5.png" alt="Resultado">
+    </div>
+</div>
+<div class="level">
+    <div class="title">
+        88% de acerto: Você é praticamente um aluno de Hogwarts!
+    </div>
+    <div class="content">
+        <img src="img/image5.png" alt="Resultado">
+        <div class="text">
+            Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste. 
         </div>
     </div>
+    
+</div>
+<div class="buttons">
+    <div class="restart">Reiniciar Quizz</div>
+    <div class="home">Voltar pra home</div>
+</div>
     `
     document.querySelector(".second_screen").classList.remove("hidden");
     //console.log(quizz);
