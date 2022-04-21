@@ -5,7 +5,7 @@
 
 body{
     font-family: 'Roboto', sans-serif;
-    background-color: #E5E5E5;
+    background-color: #fafafa;
 }
 
 ion-icon:hover {
@@ -32,7 +32,7 @@ ion-icon:hover {
     color: #FFFFFF;
 }
 
-.content {
+.container {
     margin-top: calc(69px + 77px);
     margin-bottom: 69px;
     width: 1051px;
@@ -40,7 +40,7 @@ ion-icon:hover {
     margin-right: auto;
 }
 
-.content h3 {
+.container h3 {
     font-size: 20px;
     font-weight: 700;
 }
@@ -168,6 +168,10 @@ ion-icon:hover {
 /* SECOND SCREEN */
 .second_screen{
     margin: 69px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .banner{
@@ -208,14 +212,14 @@ ion-icon:hover {
     padding: 87px 0 ;
 }
 
-.questions{
+/* .questions, {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
+} */
 
-.question {
+.question, .level {
     width: 759px;
     height: 676px;
     background-color: #FFF;
@@ -263,6 +267,86 @@ ion-icon:hover {
     margin: 10px 0 19px 0;
 }
 
+.level{
+    height: 430px;
+    padding: 18px;
+    margin-top: 0;
+    margin-bottom: 57px;
+}
+
+.level .content{
+    display: flex;
+}
+
+.level .title{
+    background-color: #EC362D;
+    width: 727px;
+    height: 99px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    margin-bottom: 18px;
+}
+
+.level .text{
+    width: 328px;
+    height: fit-content;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 132%;
+    /* or 25px */
+    color: #484848;
+    margin: 0 0 4px 21px;
+    text-align: justify;
+}
+
+.level img {
+    width: 364px;
+    height: 273px;
+    object-fit: cover;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons .restart{
+    width: 220.32px;
+    height: 44px;
+    background-color: #EC362D;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FFF5F4;
+}
+
+.buttons .home{
+    width: 219.64px;
+    height: 44px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #818181;
+}
+
 .hidden {
     display: none;
 }
@@ -272,7 +356,7 @@ ion-icon:hover {
     .topbar{
         width: 100%;
     }
-    .content {
+    .container {
         width: 100%;
         margin-top: calc(69px + 31px);
     }
@@ -292,6 +376,10 @@ ion-icon:hover {
         justify-content: space-around;
         margin-top: 12px;
     }
+
+    /* .Quizz{
+        width: 100%;
+    } */
 
     .AllQuizzes>h3 {
         margin-left: 5%;
@@ -314,19 +402,20 @@ ion-icon:hover {
         line-height: 22px;
     }
     
-    .questions{
+    .second_screen,.questions{
         width: 100%;
-        margin: 0 0 0px 0;
     }
 
-    .question{
+
+
+    .question, .level{
         width: 100%;
         height: fit-content;
         padding: 18px;
         margin: 24px 0;
     }
 
-    .question .title {
+    .question .title, .level .title {
         width: 100%;
         margin: 0 0 13px 0;
         font-size: 19px;
@@ -344,6 +433,23 @@ ion-icon:hover {
     .answers text {
         font-size: 13px;
         line-height: 15px;
+    }
+
+    .level img{
+        width: 100%;
+        height: auto;
+    }
+
+    .level .text{
+        width: 100%;
+        margin: 9px 0 0 0;
+    }
+
+    .level .content{
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
 }

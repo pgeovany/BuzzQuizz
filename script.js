@@ -21,13 +21,17 @@ function renderQuizzes(response) {
         <div class="img_bgd"></div>
         <div>
             <h1>${quizzes[i].title}</h1>
+            <span class="id hidden">${quizzes[i].id}</span>
         </div>
     </div>
     `;
     }
 }
 
-function playQuizz(array) {
+function playQuizz(element) {
+    const quizzId = Number(element.querySelector(".id").innerHTML);
+    console.log(quizzId);
+
     console.log(array);
 }
 getQuizzes();
