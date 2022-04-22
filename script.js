@@ -17,6 +17,33 @@ function createQuestions() {
     document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
 }
 
+function setQuizzBasicInfo() {
+    const quizzTitle = document.querySelector(".QuizzMakingChildren.Info .userQuizzTitle").value;
+    const quizzImageURL = document.querySelector(".QuizzMakingChildren.Info .userQuizzImage").value;
+    const quizzNumberOfQuestions = Number(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfQuestions").value);
+    const quizzNumberOfLevels = Number(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfLevels").value);
+    if(verifyQuizzBasicInfo(quizzTitle, quizzImageURL, quizzNumberOfQuestions, quizzNumberOfLevels)) {
+        document.querySelector(".QuizzMakingChildren.Info").classList.add("hidden");
+        document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
+    }
+    else {
+        alert("Por favor, preencha os dados corretamente!");
+    }
+} 
+
+function verifyQuizzBasicInfo(title, imageURL, questions, levels) {
+    if((title.length >= 20 && title.length <=65) && questions >= 3 && levels >= 2 && isValidWebUrl(imageURL)) {
+        return true;
+    }
+    return false;
+}
+
+function isValidWebUrl(url) {
+    let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
+    return regEx.test(url);
+}
+
+
 function createLevels() {
     document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
     document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
