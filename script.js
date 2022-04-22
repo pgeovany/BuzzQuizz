@@ -21,6 +21,11 @@ function createLevels() {
     document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
 }
 
+function quizzFinished() {
+    document.querySelector(".QuizzMakingChildren.Level").classList.add("hidden");
+    document.querySelector(".QuizzMakingChildren.Success").classList.remove("hidden");
+}
+
 function getQuizzes() {
     let promise = axios.get(`${API}/quizzes`);
     promise.then(renderQuizzes);
