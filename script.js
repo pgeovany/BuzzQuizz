@@ -7,6 +7,18 @@ function reloadPage() {
 
 function createNewQuizz() {
     console.log("To do");
+    document.querySelector(".container").classList.add("hidden");
+    document.querySelector(".QuizzMakingChildren.Info").classList.remove("hidden");
+}
+
+function createQuestions() {
+    document.querySelector(".QuizzMakingChildren.Info").classList.add("hidden");
+    document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
+}
+
+function createLevels() {
+    document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
+    document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
 }
 
 function getQuizzes() {

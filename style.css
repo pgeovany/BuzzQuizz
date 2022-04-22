@@ -12,6 +12,16 @@ ion-icon:hover {
     cursor: pointer;
 }
 
+input:focus {
+    outline: none;
+}
+
+::placeholder {
+    font-size: 19px;
+    font-style: italic;
+    color: #BABABA;
+}
+
 .topbar {
     background-color: #EC362D;
     width: 100%;
@@ -148,6 +158,7 @@ ion-icon:hover {
 
 .userQuizzesEmpty .button:hover {
     cursor: pointer;
+    transform: translateY(-1px);
 }
 
 /* USER QUIZZES WHEN EMPTY*/
@@ -375,6 +386,105 @@ aside{
     opacity: 0.3;
 }
 
+/* SECOND SCREEN */
+
+/* QUIZZ CREATION */
+
+.QuizzMaking {
+    width: 600px;
+    height: auto;
+    margin-top: calc(69px + 71px);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.QuizzMaking h3, h2 {
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.QuizzMaking h2 {
+    font-size: 20px;
+    margin-top: 28px;
+}
+
+.QuizzMaking .button {
+    width: 324px;
+    height: 54px;
+    margin-top: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    color: #FFF5F4;
+    background-color: #EC362D;
+
+}
+
+.QuizzMaking .button:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+}
+
+.QuizzMakingChildren {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.QuizzMaking .QuizzInfo {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    padding: 20px 16px;
+}
+
+.QuizzInfo {
+    width: 100%;
+}
+
+.QuizzInfo input {
+    margin-bottom: 8px;
+    height: 46px;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    font-size: 19px;
+    padding-left: 23px;
+}
+
+.QuizzInfo input:last-child {
+    margin-bottom: 0;
+}
+
+.QuizzMaking .question,
+.QuizzMaking .level {
+    width: 100%;
+    height: 74px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.QuizzMaking .question,
+.QuizzMaking .level ion-icon {
+    font-size: 30px;
+}
+
+
+/* QUIZZ CREATION */
+
 .hidden {
     display: none;
 }
@@ -484,4 +594,15 @@ aside{
         align-items: center;
     }
 
+    /* QUIZZ MAKING */
+    .QuizzMaking {
+        width: 100%;
+        margin-top: calc(69px + 37px);
+    }
+
+    .QuizzMaking .button {
+        margin-top: 29px;
+    }
+
+    /* QUIZZ MAKING */
 }
