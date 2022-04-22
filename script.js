@@ -7,7 +7,6 @@ function reloadPage() {
 }
 
 function createNewQuizz() {
-    console.log("To do");
     document.querySelector(".container").classList.add("hidden");
     document.querySelector(".QuizzMakingChildren.Info").classList.remove("hidden");
 }
@@ -65,7 +64,7 @@ function randomNumber() {
 
 function renderClickedQuizz (response) {
     currentQuizz = response.data;
-    const randomizedAnswers = currentQuizz.questions.map((question,index) => Question(question,index));
+    const questions = currentQuizz.questions.map((question,index) => Question(question,index));
     return document.querySelector(".second_screen").innerHTML =
     `
         <div class="banner">
@@ -74,7 +73,7 @@ function renderClickedQuizz (response) {
             <p class="title">${currentQuizz .title}</p>
         </div>
         <div class="questions">
-        ${randomizedAnswers.join("")}
+        ${questions.join("")}
         </div>
         <div class="level" data-id="level">
             <div class="title">
@@ -139,11 +138,13 @@ function Answered(element,isCorrectAnswer,index){
 
 function opacityWrongAnswers(answers_arr,element){
     const answers = answers_arr.querySelectorAll(".answer");
+    element.removeAttribute("onclick");
     
     for (let i=0; i < answers.length ; i++){
         const answer = answers[i];
         if (answer !== element ){
             answer.classList.add("whitish");
+            answer.removeAttribute("onclick");
         }
     }
 }
