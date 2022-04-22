@@ -1,6 +1,7 @@
 const API = "https://mock-api.driven.com.br/api/v6/buzzquizz";
 let quizzes = [];
 let currentQuizz ={};
+let qttQuestions=0;
 
 function reloadPage() {
     window.location.reload();
@@ -70,6 +71,8 @@ function randomNumber() {
 function renderClickedQuizz (response) {
     currentQuizz = response.data;
     const questions = currentQuizz.questions.map((question,index) => Question(question,index));
+    qttQuestions=questions.length;
+    console.log(qttQuestions);
     return document.querySelector(".second_screen").innerHTML =
     `
         <div class="banner">
@@ -139,11 +142,12 @@ function Answered(element,isCorrectAnswer,index){
     console.log(isCorrectAnswer);
 
     scrollIntoNextQuestion(index);
+    // isFinished();
 }
 
 function opacityWrongAnswers(answers_arr,element){
     const answers = answers_arr.querySelectorAll(".answer");
-    element.removeAttribute("onclick");
+    element.removeAttribute("onclick"); 
     
     for (let i=0; i < answers.length ; i++){
         const answer = answers[i];
@@ -153,6 +157,10 @@ function opacityWrongAnswers(answers_arr,element){
         }
     }
 }
+
+// function isFinished(){
+
+// }
 
 
 function reStart(){
