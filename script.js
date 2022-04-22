@@ -1,5 +1,6 @@
 const API = "https://mock-api.driven.com.br/api/v6/buzzquizz";
 let quizzes = [];
+let currentQuizz ={};
 
 function reloadPage() {
     window.location.reload();
@@ -51,7 +52,9 @@ function getClickedQuizz(element) {
 
 function playQuizz(response) {
     document.querySelector(".container").classList.add("hidden");
+    document.querySelector(".second_screen").classList.remove("hidden");
     renderClickedQuizz(response);
+    
 }
 
 getQuizzes();
@@ -61,9 +64,9 @@ function randomNumber() {
 }
 
 function renderClickedQuizz (response) {
-    const currentQuizz = response.data;
-    const randomizedAnswers = currentQuizz.questions.map(question => Answers(question));
-    document.querySelector(".second_screen").innerHTML =
+    currentQuizz = response.data;
+    const randomizedAnswers = currentQuizz.questions.map((question,index) => Question(question,index));
+    return document.querySelector(".second_screen").innerHTML =
     `
         <div class="banner">
             <img src="${currentQuizz.image}" alt="${currentQuizz.title}">
@@ -73,32 +76,40 @@ function renderClickedQuizz (response) {
         <div class="questions">
         ${randomizedAnswers.join("")}
         </div>
-    `
-    document.querySelector(".second_screen").classList.remove("hidden");
+        <div class="level" data-id="level">
+            <div class="title">
+                ${currentQuizz.levels[0].minValue}% de acerto: ${currentQuizz.levels[0].title}
+            </div>
+            <div class="content">
+                <img src="${currentQuizz.levels[0].image}" alt="${currentQuizz.title}">
+                <div class="text">${currentQuizz.levels[0].text}</div>
+            </div>
+        </div>
+        <div class="buttons">
+            <div class="restart" onclick="reStart()">Reiniciar Quizz</div>
+            <div class="home" onclick="reloadPage()">Voltar pra home</div>
+        </div>    
+    `;
+    
 }
 
-function Answers(question){
+function Question(question,index){
     question.answers.sort(randomNumber);
-    const answers = question.answers.map(mapFunction);
-
-    function mapFunction(answer){
-        return Answer(answer);
-    }
+    const answers = question.answers.map((answer) => Answer(answer,index));
 
     return `
-                <div class="question" data-id="question">
+                <div class="question question_${index}" data-id="question">
                     <div class="title">
                         ${question.title}
                     </div>
                     <div class="answers">
                         ${answers.join("")}
                     </div>
-    
                 </div>
     `;
 }
 
-function Answer(answer){
+function Answer(answer,index){
     let type_answer = "";
 
     if (answer.isCorrectAnswer){
@@ -108,7 +119,7 @@ function Answer(answer){
     }
 
     return `
-    <div class="answer ${type_answer}" data-id="answer" onclick="Answered(this,${answer.isCorrectAnswer})">
+    <div class="answer ${type_answer}" data-id="answer" onclick="Answered(this,${answer.isCorrectAnswer},${index})">
         <img src="${answer.image}">
         <div class="text">${answer.text}</div>
     </div>
@@ -116,18 +127,18 @@ function Answer(answer){
 }
 
 
-function Answered(element,isCorrectAnswer){
+function Answered(element,isCorrectAnswer,index){
     const answers_arr = element.parentNode;
     answers_arr.classList.add("answered");
-    console.log("answers_arr");
-    console.log(answers_arr);
+
     opacityWrongAnswers(answers_arr,element);
     console.log(isCorrectAnswer);
+
+    scrollIntoNextQuestion(index);
 }
 
 function opacityWrongAnswers(answers_arr,element){
     const answers = answers_arr.querySelectorAll(".answer");
-    console.log(answers);
     
     for (let i=0; i < answers.length ; i++){
         const answer = answers[i];
@@ -138,3 +149,32 @@ function opacityWrongAnswers(answers_arr,element){
 }
 
 
+function reStart(){
+    const top_screen = document.querySelector(".banner");
+    top_screen.scrollIntoView();
+    reLoadQuizz();
+}
+
+function reLoadQuizz(){
+    const promise = axios.get(`${API}/quizzes/${currentQuizz.id}`);
+    const quizz_page = document.querySelector(".second_screen");
+    quizz_page.classList.remove("hidden");
+
+    promise.then(response => {
+        quizz_page.innerHTML="";
+        quizz_page.innerHTML = renderClickedQuizz(response);
+    }) 
+}
+
+function scrollIntoNextQuestion(index){
+    const index_questionAnswered = index;
+    const index_lastQuestion = currentQuizz.questions.length-1;
+    const index_nextQuestion = index +1;
+    
+    if (index_questionAnswered !== index_lastQuestion){
+        const nextQuestion =  document.querySelector(`.question_${index_nextQuestion}`);
+        setTimeout(function() {
+            return nextQuestion.scrollIntoView();
+           }, 2000);
+    }
+}
