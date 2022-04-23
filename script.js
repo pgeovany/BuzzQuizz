@@ -16,7 +16,8 @@ let userQuizz = {
     levels: ""
 };
 let numberOfQuestions;
-let numberOfLevels;
+let numberOfLevels=0;
+let levels_arr=[];
 
 
 function reloadPage() {
@@ -65,11 +66,87 @@ function renderQuizzQuestions(element) {
     console.log(questionNumber);
 }
 
-function createLevels() {
-    document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
-    document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
+//-------------------------------------------------------------------------------------
+function renderQuizzLevels(){
+    levels_arr= Array(numberOfLevels).fill("");
+    document.querySelector(".QuizzMakingChildren.Level").innerHTML = createLevels(userQuizz.levels); 
 }
 
+
+function createLevels(levels) {
+    document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
+    document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
+    const levelsQuizz = levels_arr.map((item,index)=>LevelsQuizz(index,levels[index]));
+    return `
+        <h3>Agora, decida os níveis</h3>
+        ${levelsQuizz.join("")}
+        <div onclick="quizzFinished()" class="button">Finalizar Quizz</div>
+    `;
+
+}
+
+function LevelsQuizz(index,levelValue){
+    let levelInfo ={};
+    let openForm="";
+
+    if (index===0){
+        openForm="display";
+    }else{
+        openForm="hidden";
+    }
+
+    if(levelValue){
+        levelInfo={
+            title:levelValue.title,
+            image:levelValue.image,
+            minValue:levelValue.minValue,
+            text:levelValue.text
+        }
+    }else{
+        levelInfo={
+            title:"",
+            image:"",
+            minValue:"",
+            text:""
+        }
+    }
+    return `
+    <div class="QuizzInfo level${index+1}">
+        <div class="title">
+            <h2>Nível ${index+1}</h2>
+            <div>
+                <ion-icon class="icon" name="create-outline"></ion-icon>
+            </div>   
+        </div>
+        <div>
+            <input class="userQuizzQuestionText" type="text" placeholder="Título do nível" id="">
+            <input class="userQuizzQuestionColour" type="text" placeholder="% de acerto mínima" id="">
+            <input class="userQuizzQuestionColour" type="text" placeholder="URL da imagem do nível" id="">
+            <input class="userQuizzQuestionColour" type="text" placeholder="Descrição do nível" id="">
+        </div>
+    </div>  
+    `;
+
+    // return `
+    //     <div class="QuizzInfo level${index+1} ${openForm}">
+
+        
+    //         <h2>Nível ${index+1}</h2>
+    //         <input class="userQuizzQuestionText" type="text" placeholder="Título do nível" id="">
+    //         <input class="userQuizzQuestionColour" type="text" placeholder="% de acerto mínima" id="">
+    //         <input class="userQuizzQuestionColour" type="text" placeholder="URL da imagem do nível" id="">
+    //         <input class="userQuizzQuestionColour" type="text" placeholder="Descrição do nível" id="">
+    
+    //     </div>        
+    // `;
+}
+
+function openOption(element,parentelement){
+
+}
+
+
+//---------------------------------------------------------------------------------------
 function quizzFinished() {
     document.querySelector(".QuizzMakingChildren.Level").classList.add("hidden");
     document.querySelector(".QuizzMakingChildren.Success").classList.remove("hidden");
@@ -120,6 +197,7 @@ function renderClickedQuizz (response) {
     currentQuizz = response.data;
     const questions = currentQuizz.questions.map((question,index) => Question(question,index));
     qttQuestions=questions.length;
+    document.querySelector(".second_screen").scrollIntoView();
     
     return document.querySelector(".second_screen").innerHTML =
     `
