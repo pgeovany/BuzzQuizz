@@ -7,6 +7,16 @@ let qttCorrect=0;
 let score=0;
  min_value=[];
 
+let userQuizz = {
+    title: "",
+    image: "",
+    questions: "",
+    levels: ""
+};
+let numberOfQuestions;
+let numberOfLevels;
+
+
 function reloadPage() {
     window.location.reload();
 }
@@ -16,37 +26,42 @@ function createNewQuizz() {
     document.querySelector(".QuizzMakingChildren.Info").classList.remove("hidden");
 }
 
-function createQuestions() {
-    document.querySelector(".QuizzMakingChildren.Info").classList.add("hidden");
-    document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
-}
-
 function setQuizzBasicInfo() {
-    const quizzTitle = document.querySelector(".QuizzMakingChildren.Info .userQuizzTitle").value;
-    const quizzImageURL = document.querySelector(".QuizzMakingChildren.Info .userQuizzImage").value;
-    const quizzNumberOfQuestions = Number(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfQuestions").value);
-    const quizzNumberOfLevels = Number(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfLevels").value);
-    if(verifyQuizzBasicInfo(quizzTitle, quizzImageURL, quizzNumberOfQuestions, quizzNumberOfLevels)) {
+    userQuizz.title = document.querySelector(".QuizzMakingChildren.Info .userQuizzTitle").value;
+    userQuizz.image = document.querySelector(".QuizzMakingChildren.Info .userQuizzImage").value;
+    numberOfQuestions = Number(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfQuestions").value);
+    numberOfLevels = Number(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfLevels").value);
+    if(verifyQuizzBasicInfo(userQuizz.title, userQuizz.image, numberOfQuestions, numberOfLevels)) {
         document.querySelector(".QuizzMakingChildren.Info").classList.add("hidden");
         document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
+        renderQuizzQuestionsLayout();
     }
     else {
         alert("Por favor, preencha os dados corretamente!");
     }
-} 
+}
 
-function verifyQuizzBasicInfo(title, imageURL, questions, levels) {
-    if((title.length >= 20 && title.length <=65) && questions >= 3 && levels >= 2 && isValidWebUrl(imageURL)) {
-        return true;
+function setQuizzAnswers() {
+}
+
+function renderQuizzQuestionsLayout() {
+    let button = `<div onclick="setQuizzAnswers()"class="button">Prosseguir pra criar níveis</div>`
+    for(let i = 2; i < numberOfQuestions+1; i++) {
+        document.querySelector(".QuizzMakingChildren.Questions").innerHTML +=
+        `
+        <div class="question question-${i}">
+            <h2>Pergunta <span class="question-number">${i}</span></h2>
+            <ion-icon onclick="renderQuizzQuestions(this)" name="create-outline"></ion-icon>
+        </div>
+        `
     }
-    return false;
+    document.querySelector(".QuizzMakingChildren.Questions").innerHTML += button;
 }
 
-function isValidWebUrl(url) {
-    let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
-    return regEx.test(url);
+function renderQuizzQuestions(element) {
+    let questionNumber = Number(element.parentNode.querySelector("span").innerHTML);
+    console.log(questionNumber);
 }
-
 
 function createLevels() {
     document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
@@ -255,3 +270,20 @@ function scrollIntoNextQuestion(index){
            }, 2000);
     }
 }
+
+
+//INPUT VALIDATION
+
+function verifyQuizzBasicInfo(title, imageURL, questions, levels) {
+    if((title.length >= 20 && title.length <=65) && questions >= 3 && levels >= 2 && isValidWebUrl(imageURL)) {
+        return true;
+    }
+    return false;
+}
+
+function isValidWebUrl(url) {
+    let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
+    return regEx.test(url);
+}
+
+//INPUT VALIDATION

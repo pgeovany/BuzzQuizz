@@ -542,6 +542,15 @@ aside{
     color: #FFFFFF;
 }
 
+.wrongAnswers, .rightAnswer {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrongAnswers > input:nth-child(even) {
+    margin-bottom: 30px;
+}
+
 /* QUIZZ CREATION */
 
 .hidden {

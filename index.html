@@ -77,7 +77,7 @@
                 <div onclick="setQuizzBasicInfo()" class="button">Prosseguir pra criar perguntas</div>
             </div>
 
-            <div class="QuizzMakingChildren Questions hidden">
+            <!-- <div class="QuizzMakingChildren Questions">
                 <h3>Crie suas perguntas</h3>
                     <div class="QuizzInfo question1">
                         <h2>Pergunta 1</h2>
@@ -91,13 +91,57 @@
                         <h2>Respostas incorretas</h2>
                         <input class="userQuizzWrongAnswerText" type="text" placeholder="Resposta incorreta 1" id="">
                         <input class="userQuizzWrongAnswerURL" type="text" placeholder="URL da imagem 1" id="">
+
+                        <input class="userQuizzWrongAnswerText" type="text" placeholder="Resposta incorreta 2" id="">
+                        <input class="userQuizzWrongAnswerURL" type="text" placeholder="URL da imagem 2" id="">
+
+                        <input class="userQuizzWrongAnswerText" type="text" placeholder="Resposta incorreta 3" id="">
+                        <input class="userQuizzWrongAnswerURL" type="text" placeholder="URL da imagem 3" id="">
+
+                        <input class="userQuizzWrongAnswerText" type="text" placeholder="Resposta incorreta 4" id="">
+                        <input class="userQuizzWrongAnswerURL" type="text" placeholder="URL da imagem 4" id="">
                     </div>   
-                <div class="question question2">
+                <div class="question question-2">
                     <h2>Pergunta 2</h2>
                     <ion-icon name="create-outline"></ion-icon>
                 </div>
-                <div onclick="createLevels()"class="button">Prosseguir pra criar níveis</div>
+                <div onclick="setQuizzAnswers()"class="button">Prosseguir pra criar níveis</div>
+            </div> -->
+
+            <div class="QuizzMakingChildren Questions hidden">
+                <h3>Crie suas perguntas</h3>
+                    <div class="QuizzInfo question-1">
+                        <h2>Pergunta 1</h2>
+                        <input class="userQuizzQuestionText" type="text" placeholder="Texto da pergunta" id="">
+                        <input class="userQuizzQuestionColour" type="text" placeholder="Cor de fundo da pergunta" id="">
+    
+                        <h2>Resposta correta</h2>
+                        <div class="rightAnswer">
+                            <input class="userQuizzRightAnswerText" type="text" placeholder="Resposta correta" id="">
+                            <input class="userQuizzRightAnswerURL" type="text" placeholder="URL da imagem" id="">
+
+                        </div>
+
+                        <h2>Respostas incorretas</h2>
+                        <div class="wrongAnswers">
+                            <input type="text" placeholder="Resposta incorreta 1" id="">
+                            <input type="text" placeholder="URL da imagem 1" id="">
+    
+                            <input type="text" placeholder="Resposta incorreta 2" id="">
+                            <input type="text" placeholder="URL da imagem 2" id="">
+    
+                            <input type="text" placeholder="Resposta incorreta 3" id="">
+                            <input type="text" placeholder="URL da imagem 3" id="">
+    
+                            <input type="text" placeholder="Resposta incorreta 4" id="">
+                            <input type="text" placeholder="URL da imagem 4" id="">
+                        </div>
+
+                    </div>   
             </div>
+
+
+
 
             <div class="QuizzMakingChildren Level hidden">
                 <h3>Agora, decida os níveis</h3>
