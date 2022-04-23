@@ -2,6 +2,10 @@ const API = "https://mock-api.driven.com.br/api/v6/buzzquizz";
 let quizzes = [];
 let currentQuizz ={};
 let qttQuestions=0;
+let qttAnswered=0;
+let qttCorrect=0;
+let score=0;
+ min_value=[];
 
 function reloadPage() {
     window.location.reload();
@@ -100,6 +104,7 @@ function renderClickedQuizz (response) {
     const questions = currentQuizz.questions.map((question,index) => Question(question,index));
     qttQuestions=questions.length;
     console.log(qttQuestions);
+    
     return document.querySelector(".second_screen").innerHTML =
     `
         <div class="banner">
@@ -110,7 +115,7 @@ function renderClickedQuizz (response) {
         <div class="questions">
         ${questions.join("")}
         </div>
-        <div class="level" data-id="level">
+        <div class="level hidden" data-id="level">
             <div class="title">
                 ${currentQuizz.levels[0].minValue}% de acerto: ${currentQuizz.levels[0].title}
             </div>
@@ -119,11 +124,12 @@ function renderClickedQuizz (response) {
                 <div class="text">${currentQuizz.levels[0].text}</div>
             </div>
         </div>
-        <div class="buttons">
+        <div class="buttons hidden">
             <div class="restart" onclick="reStart()">Reiniciar Quizz</div>
             <div class="home" onclick="reloadPage()">Voltar pra home</div>
         </div>    
-    `;
+    `
+    ;
     
 }
 
@@ -164,12 +170,20 @@ function Answer(answer,index){
 function Answered(element,isCorrectAnswer,index){
     const answers_arr = element.parentNode;
     answers_arr.classList.add("answered");
+    qttAnswered = qttAnswered +1;
+    console.log(qttAnswered)
 
     opacityWrongAnswers(answers_arr,element);
     console.log(isCorrectAnswer);
 
+    if (isCorrectAnswer){
+        qttCorrect = qttCorrect +1;
+        console.log(qttCorrect);
+    }
+
     scrollIntoNextQuestion(index);
-    // isFinished();
+    isFinished();
+    
 }
 
 function opacityWrongAnswers(answers_arr,element){
@@ -185,12 +199,34 @@ function opacityWrongAnswers(answers_arr,element){
     }
 }
 
-// function isFinished(){
+function isFinished(){
+    if (qttAnswered===qttQuestions){
+        setTimeout(function() {
+            const level = document.querySelector(".level.hidden");
+            level.classList.remove("hidden");
+            const buttons = document.querySelector(".buttons.hidden");
+            buttons.classList.remove("hidden");
+            level.scrollIntoView();
+        }, 2000);
+    }
+    LevelScore();
 
-// }
+}
 
+function LevelScore (){
+    score = Math.floor((qttCorrect/qttQuestions)*100);
+    const levelScore = currentQuizz.levels.map((level) => Level(level));
+    console.log(levelScore);
+    console.log(min_value);
+}
+
+function Level(level){
+    return min_value.push(level.minValue);
+}
 
 function reStart(){
+    qttAnswered=0;
+    qttCorrect=0;
     const top_screen = document.querySelector(".banner");
     top_screen.scrollIntoView();
     reLoadQuizz();
