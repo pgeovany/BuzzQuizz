@@ -484,6 +484,23 @@ aside{
 .QuizzInfo input:last-child {
     margin-bottom: 0;
 }
+/* --------------------------------------------------------------- */
+.QuizzMakingChildren .QuizzInfo .title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.QuizzMakingChildren .QuizzInfo .title .icon{
+    font-size: 26px ;
+}
+
+/* .options input{
+    flex-direction: column;
+    width:100%;
+} */
+
+/* --------------------------------------------------------------- */
 
 .QuizzMaking .question,
 .QuizzMaking .level {
@@ -561,7 +578,7 @@ aside{
     display: none;
 }
 
-.displayOn {
+.displayOn{
     display: initial;
 }
 

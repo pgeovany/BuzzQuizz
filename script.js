@@ -15,7 +15,7 @@ let userQuizz = {
     questions: "",
     levels: ""
 };
-let numberOfQuestions;
+let numberOfQuestions=0;
 let numberOfLevels=0;
 let levels_arr=[];
 
@@ -124,7 +124,7 @@ function LevelsQuizz(index,levelValue){
     let openForm="";
 
     if (index===0){
-        openForm="display";
+        openForm="displayOn";
     }else{
         openForm="hidden";
     }
@@ -145,14 +145,14 @@ function LevelsQuizz(index,levelValue){
         }
     }
     return `
-    <div class="QuizzInfo level${index+1}">
+    <div class="QuizzInfo level${index+1} ">
         <div class="title">
             <h2>Nível ${index+1}</h2>
-            <div>
+            <div onclick="openOption(this)">
                 <ion-icon class="icon" name="create-outline"></ion-icon>
             </div>   
         </div>
-        <div>
+        <div class="options ${openForm}">
             <input class="userQuizzQuestionText" type="text" placeholder="Título do nível" id="">
             <input class="userQuizzQuestionColour" type="text" placeholder="% de acerto mínima" id="">
             <input class="userQuizzQuestionColour" type="text" placeholder="URL da imagem do nível" id="">
@@ -161,22 +161,15 @@ function LevelsQuizz(index,levelValue){
     </div>  
     `;
 
-    // return `
-    //     <div class="QuizzInfo level${index+1} ${openForm}">
-
-        
-    //         <h2>Nível ${index+1}</h2>
-    //         <input class="userQuizzQuestionText" type="text" placeholder="Título do nível" id="">
-    //         <input class="userQuizzQuestionColour" type="text" placeholder="% de acerto mínima" id="">
-    //         <input class="userQuizzQuestionColour" type="text" placeholder="URL da imagem do nível" id="">
-    //         <input class="userQuizzQuestionColour" type="text" placeholder="Descrição do nível" id="">
-    
-    //     </div>        
-    // `;
 }
 
-function openOption(element,parentelement){
+function openOption(element){
+    const currentOption = document.querySelector(".options.displayOn");
+    currentOption.classList.remove("displayOn");
+    currentOption.classList.add("hidden");
 
+    element.parentNode.parentNode.querySelector(".options").classList.add("displayOn");
+    element.parentNode.parentNode.querySelector(".options").classList.remove("hidden");
 }
 
 
