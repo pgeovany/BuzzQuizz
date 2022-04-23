@@ -5,7 +5,9 @@ let qttQuestions=0;
 let qttAnswered=0;
 let qttCorrect=0;
 let score=0;
- min_value=[];
+
+let min_value=[];
+
 
 let userQuizz = {
     title: "",
@@ -118,7 +120,6 @@ function renderClickedQuizz (response) {
     currentQuizz = response.data;
     const questions = currentQuizz.questions.map((question,index) => Question(question,index));
     qttQuestions=questions.length;
-    console.log(qttQuestions);
     
     return document.querySelector(".second_screen").innerHTML =
     `
@@ -131,13 +132,7 @@ function renderClickedQuizz (response) {
         ${questions.join("")}
         </div>
         <div class="level hidden" data-id="level">
-            <div class="title">
-                ${currentQuizz.levels[0].minValue}% de acerto: ${currentQuizz.levels[0].title}
-            </div>
-            <div class="content">
-                <img src="${currentQuizz.levels[0].image}" alt="${currentQuizz.title}">
-                <div class="text">${currentQuizz.levels[0].text}</div>
-            </div>
+            
         </div>
         <div class="buttons hidden">
             <div class="restart" onclick="reStart()">Reiniciar Quizz</div>
@@ -186,18 +181,16 @@ function Answered(element,isCorrectAnswer,index){
     const answers_arr = element.parentNode;
     answers_arr.classList.add("answered");
     qttAnswered = qttAnswered +1;
-    console.log(qttAnswered)
 
     opacityWrongAnswers(answers_arr,element);
-    console.log(isCorrectAnswer);
 
     if (isCorrectAnswer){
         qttCorrect = qttCorrect +1;
-        console.log(qttCorrect);
     }
 
     scrollIntoNextQuestion(index);
     isFinished();
+    
     
 }
 
@@ -223,25 +216,41 @@ function isFinished(){
             buttons.classList.remove("hidden");
             level.scrollIntoView();
         }, 2000);
+        LevelScore();
     }
-    LevelScore();
+    
 
 }
 
 function LevelScore (){
     score = Math.floor((qttCorrect/qttQuestions)*100);
-    const levelScore = currentQuizz.levels.map((level) => Level(level));
-    console.log(levelScore);
-    console.log(min_value);
+    currentQuizz.levels.map((level) => min_value.push(level.minValue));
+    
+    for (let i=0; i<min_value.length; i++){
+        const index = (min_value.length)-1-i;
+        const value= min_value[index];
+
+        if (score >= Number(value)){
+            document.querySelector(".level").innerHTML = `
+            <div class="title">
+                ${score}% de acerto: ${currentQuizz.levels[index].title}
+            </div>
+            <div class="content">
+                <img src="${currentQuizz.levels[index].image}" alt="${currentQuizz.title}">
+                <div class="text">${currentQuizz.levels[index].text}</div>
+            </div>`;
+            break;
+        }
+    }
+
 }
 
-function Level(level){
-    return min_value.push(level.minValue);
-}
+
 
 function reStart(){
     qttAnswered=0;
     qttCorrect=0;
+    min_value=[];
     const top_screen = document.querySelector(".banner");
     top_screen.scrollIntoView();
     reLoadQuizz();
