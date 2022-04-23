@@ -44,26 +44,60 @@ function setQuizzBasicInfo() {
     }
 }
 
-function setQuizzAnswers() {
-}
-
 function renderQuizzQuestionsLayout() {
     let button = `<div onclick="setQuizzAnswers()"class="button">Prosseguir pra criar níveis</div>`
+    //starting from the second question, since the first one is hard coded in the html file.
     for(let i = 2; i < numberOfQuestions+1; i++) {
         document.querySelector(".QuizzMakingChildren.Questions").innerHTML +=
         `
         <div class="question question-${i}">
             <h2>Pergunta <span class="question-number">${i}</span></h2>
-            <ion-icon onclick="renderQuizzQuestions(this)" name="create-outline"></ion-icon>
+            <ion-icon onclick="expandQuestion(this)" name="create-outline"></ion-icon>
+        </div>
+
+        <div class="QuizzInfo question-${i} questionMargin" style="display:none">
+            <h2>Pergunta ${i}</h2>
+            <input class="userQuizzQuestionText" type="text" placeholder="Texto da pergunta" id="">
+            <input class="userQuizzQuestionColour" type="text" placeholder="Cor de fundo da pergunta" id="">
+
+            <h2>Resposta correta</h2>
+            <div class="rightAnswer">
+                <input class="userQuizzRightAnswerText" type="text" placeholder="Resposta correta" id="">
+                <input class="userQuizzRightAnswerURL" type="text" placeholder="URL da imagem" id="">
+
+            </div>
+
+            <h2>Respostas incorretas</h2>
+            <div class="wrongAnswers">
+                <input type="text" placeholder="Resposta incorreta 1" id="">
+                <input type="text" placeholder="URL da imagem 1" id="">
+
+                <input type="text" placeholder="Resposta incorreta 2" id="">
+                <input type="text" placeholder="URL da imagem 2" id="">
+
+                <input type="text" placeholder="Resposta incorreta 3" id="">
+                <input type="text" placeholder="URL da imagem 3" id="">
+
+                <input type="text" placeholder="Resposta incorreta 4" id="">
+                <input type="text" placeholder="URL da imagem 4" id="">
+            </div>
         </div>
         `
     }
     document.querySelector(".QuizzMakingChildren.Questions").innerHTML += button;
 }
 
-function renderQuizzQuestions(element) {
+function expandQuestion(element) {
+    element.parentNode.setAttribute("style", "display:none");
     let questionNumber = Number(element.parentNode.querySelector("span").innerHTML);
-    console.log(questionNumber);
+    document.querySelector(`.QuizzInfo.question-${questionNumber}`).removeAttribute("style");
+
+}
+
+function setQuizzAnswers() {
+    document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
+    document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
+    renderQuizzLevels();
 }
 
 //-------------------------------------------------------------------------------------
