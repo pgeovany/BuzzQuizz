@@ -46,7 +46,7 @@ function setQuizzBasicInfo() {
 }
 
 function renderQuizzQuestionsLayout() {
-    let button = `<div onclick="setQuizzAnswers()"class="button">Prosseguir pra criar níveis</div>`
+    let button = `<div onclick="setQuizzAnswers()" class="button">Prosseguir pra criar níveis</div>`
     //starting from the second question, since the first one is hard coded in the html file.
     for(let i = 2; i < numberOfQuestions+1; i++) {
         document.querySelector(".QuizzMakingChildren.Questions").innerHTML +=
@@ -111,7 +111,6 @@ function setQuizzAnswers() {
             answers: getQuizzAnswers(inputBox)
         })
     }
-    console.log(userQuizz);
 
     if(verifyQuizzQuestions()) {
         document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
@@ -122,21 +121,6 @@ function setQuizzAnswers() {
         alert("Por favor, preencha os dados corretamente!");
     }
 }
-
-// function verifyQuizzQuestions() {
-//     //testing the right answer
-//     for(let i = 0; i < userQuizz.questions.length; i++){
-//         // if(userQuizz.questions[i].answers[0].title.length < 20 || 
-//         //     !isValidWebUrl(userQuizz.questions[i].answers[0].image)) {
-//         //         return false;
-//         //     }
-//         console.log(userQuizz.questions[i].answers[0]);
-//     }
-//     // if(userQuizz.questions.answers[0].title.length < 20 || !isValidWebUrl(userQuizz.questions.answers[0].image)) {
-//     //     return false;
-//     // }
-//     // return true;
-// }
 
 function getQuizzAnswers(inputBox) {
     let arr = [{
@@ -154,18 +138,6 @@ function getQuizzAnswers(inputBox) {
     }
     return arr;
 }
-
-// function populateAnswersArray() {
-//     let arr = [];
-//     for(let i=0; i < 4; i++) {
-//         arr[i] = {
-//             text:"",
-//             image:"",
-//             isCorrectAnswer: false
-//         }
-//     }
-//     return arr;
-// }
 
 //-------------------------------------------------------------------------------------
 function renderQuizzLevels(){
@@ -260,8 +232,6 @@ function setQuizzLevels(){
     }
     return console.log(userQuizz.levels);
 } 
-
-
 
 
 //---------------------------------------------------------------------------------------
@@ -386,8 +356,6 @@ function Answered(element,isCorrectAnswer,index){
 
     scrollIntoNextQuestion(index);
     isFinished();
-    
-    
 }
 
 function opacityWrongAnswers(answers_arr,element){
@@ -414,8 +382,6 @@ function isFinished(){
         }, 2000);
         LevelScore();
     }
-    
-
 }
 
 function LevelScore (){
@@ -438,10 +404,7 @@ function LevelScore (){
             break;
         }
     }
-
 }
-
-
 
 function reStart(){
     qttAnswered=0;
@@ -487,7 +450,52 @@ function verifyQuizzBasicInfo(title, imageURL, questions, levels) {
 }
 
 function verifyQuizzQuestions() {
-    return false;
+    let correctAnswer = 0;
+    let answersAux = []
+
+    for(let i = 0; i < userQuizz.questions.length; i++) {
+        for (let j = 0; j < userQuizz.questions[i].answers.length; j++) {
+            answersAux.push({
+                text: userQuizz.questions[i].answers[j].text,
+                image: userQuizz.questions[i].answers[j].image
+            })
+        }
+    }
+
+    let filledAnswers = answersAux.filter(item => {
+        if(item.text && item.image) {
+            return true;
+        }
+        return false;
+    })
+
+    for(let i = 0; i < userQuizz.questions.length; i++) {
+         //verifying if the questions title has the right length and whether the colour is a valid HEX colour
+         if(userQuizz.questions[i].title < 20 || !isValidColor(userQuizz.questions[i].color)){
+            //console.log("falhei no tamanho do título ou na cor");
+            return false;
+        }
+        //verifiying if every right answer is set
+        if(userQuizz.questions[i].answers[correctAnswer].text === "" || 
+        !isValidWebUrl(userQuizz.questions[i].answers[correctAnswer].image)) {
+            //console.log("falhei na verificação das respostas certas");
+            return false;
+        }
+    }
+
+    //verifiying if the user has set at least one right answer and one wrong answer
+    if(filledAnswers.length < numberOfQuestions*2) {
+        //console.log("falhei no número mínimo de respostas");
+        return false;
+    }
+    //verifiying if every set URL is valid
+    for(let i = 0; i < filledAnswers.length; i++) {
+        if(!isValidWebUrl(filledAnswers[i].image)){
+            //console.log("falhei na validação das URLs");
+            return false;
+        }
+   }
+    return true;
 }
 
 function verifyQuizzLevels(levels){
@@ -516,6 +524,11 @@ function verifyQuizzLevels(levels){
     }
     return false;
 
+}
+
+function isValidColor(color) {
+    let regEx=/^#([0-9a-f]{3}){1,2}$/i;
+    return regEx.test(color);
 }
 
 function isValidWebUrl(url) {
