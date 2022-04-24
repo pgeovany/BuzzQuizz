@@ -98,7 +98,7 @@ function testQuizzQuestions() {
     document.querySelector(".container").classList.add("hidden");
     document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
 }
-testQuizzQuestions();
+//testQuizzQuestions();
 
 function setQuizzAnswers() {
     userQuizz.questions = [];
@@ -157,7 +157,7 @@ function getQuizzAnswers() {
 //     return arr;
 // }
 
-//-------------------------------------------------------------------------------------
+//----------------------------------------LEVELS---------------------------------------------
 function renderQuizzLevels(){
     levels_arr= Array(numberOfLevels).fill("");
     document.querySelector(".QuizzMakingChildren.Level").innerHTML = createLevels(userQuizz.levels); 
@@ -251,13 +251,50 @@ function setQuizzLevels(){
     return console.log(userQuizz.levels);
 } 
 
+//------------------------------------END LEVELS---------------------------------------------------
+//--------------------------------------CRIACAO DO QUIZZ:SECESSO DO QUIZZ--------------------------
+
+    function createQuizz(){
+
+        const promise = axios.post(`${API}/quizzes`,{
+            title: userQuizz.title,
+            image: userQuizz.image,
+            questions: userQuizz.questions,
+            levels: userQuizz.levels
+        });
+        
+        promise.then(response => {
+            const createdQuizz = response.data;
+            document.querySelector(".QuizzMakingChildren.Success").innerHTML = renderQuizzSucess(createdQuizz.id);
+        })
+    }
+
+    function renderQuizzSucess(id){
+        return `
+            <h3>Seu quizz está pronto!</h3>
+            <div class="quizzPreview" onclick="getQuizzId(${id})">
+                <img src="${userQuizz.image}" alt="${userQuizz.title}">
+                <div class="img_bgd"></div>
+                <div class="quizzTitle">
+                    <h1>${userQuizz.title}</h1>
+                </div>
+            </div>
+            <div onclick="getQuizzId(${id})" class="button">Acessar Quizz</div>
+            <h4 onclick="reloadPage()">Voltar para home</h4>
+            `;
+    }
+
+    function getQuizzId(id) {
+        let promise = axios.get(`${API}/quizzes/${id}`);
+        promise.then(playQuizz);
+    }
 
 
-
-//---------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 function quizzFinished() {
     document.querySelector(".QuizzMakingChildren.Level").classList.add("hidden");
     document.querySelector(".QuizzMakingChildren.Success").classList.remove("hidden");
+    createQuizz();
 }
 
 function getQuizzes() {
