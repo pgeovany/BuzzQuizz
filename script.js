@@ -12,9 +12,10 @@ let min_value=[];
 let userQuizz = {
     title: "",
     image: "",
-    questions: "",
-    levels: ""
+    questions: [],
+    levels: []
 };
+
 let numberOfQuestions=0;
 let numberOfLevels=0;
 let levels_arr=[];
@@ -32,8 +33,8 @@ function createNewQuizz() {
 function setQuizzBasicInfo() {
     userQuizz.title = document.querySelector(".QuizzMakingChildren.Info .userQuizzTitle").value;
     userQuizz.image = document.querySelector(".QuizzMakingChildren.Info .userQuizzImage").value;
-    numberOfQuestions = Number(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfQuestions").value);
-    numberOfLevels = Number(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfLevels").value);
+    numberOfQuestions = parseInt(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfQuestions").value);
+    numberOfLevels = parseInt(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfLevels").value);
     if(verifyQuizzBasicInfo(userQuizz.title, userQuizz.image, numberOfQuestions, numberOfLevels)) {
         document.querySelector(".QuizzMakingChildren.Info").classList.add("hidden");
         document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
@@ -69,17 +70,14 @@ function renderQuizzQuestionsLayout() {
 
             <h2>Respostas incorretas</h2>
             <div class="wrongAnswers">
-                <input type="text" placeholder="Resposta incorreta 1" id="">
-                <input type="text" placeholder="URL da imagem 1" id="">
+                <input class="text-1" type="text" placeholder="Resposta incorreta 1" id="">
+                <input class="image-1" type="text" placeholder="URL da imagem 1" id="">
 
-                <input type="text" placeholder="Resposta incorreta 2" id="">
-                <input type="text" placeholder="URL da imagem 2" id="">
+                <input class="text-2" type="text" placeholder="Resposta incorreta 2" id="">
+                <input class="image-2" type="text" placeholder="URL da imagem 2" id="">
 
-                <input type="text" placeholder="Resposta incorreta 3" id="">
-                <input type="text" placeholder="URL da imagem 3" id="">
-
-                <input type="text" placeholder="Resposta incorreta 4" id="">
-                <input type="text" placeholder="URL da imagem 4" id="">
+                <input class="text-3" type="text" placeholder="Resposta incorreta 3" id="">
+                <input class="image-3" type="text" placeholder="URL da imagem 3" id="">
             </div>
         </div>
         `
@@ -89,23 +87,53 @@ function renderQuizzQuestionsLayout() {
 
 function expandQuestion(element) {
     element.parentNode.setAttribute("style", "display:none");
-    let questionNumber = Number(element.parentNode.querySelector("span").innerHTML);
+    let questionNumber = parseInt(element.parentNode.querySelector("span").innerHTML);
     document.querySelector(`.QuizzInfo.question-${questionNumber}`).removeAttribute("style");
 
 }
 
 function setQuizzAnswers() {
-    document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
-    document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
-    renderQuizzLevels();
+    let answersAux = populateAnswersArray();
+    userQuizz.questions = [];
+    userQuizz.questions.answers = answersAux;
+    
+    for (let i = 0; i < numberOfQuestions; i++) {
+        let input = document.querySelector(`.QuizzInfo.question-${i+1}`);
+        userQuizz.questions.push({
+            title: input.querySelector(".userQuizzQuestionText").value,
+            color: input.querySelector(".userQuizzQuestionColour").value
+        })
+    }
+    console.log(userQuizz);
+
+
+    if(verifyQuizzQuestions()) {
+        document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
+        document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
+        renderQuizzLevels();
+    }
+    else {
+        alert("Por favor, preencha os dados corretamente!");
+    }
 }
+
+// function populateAnswersArray() {
+//     let arr = [];
+//     for(let i=0; i < 4; i++) {
+//         arr[i] = {
+//             text:"",
+//             image:"",
+//             isCorrectAnswer: false
+//         }
+//     }
+//     return arr;
+// }
 
 //-------------------------------------------------------------------------------------
 function renderQuizzLevels(){
     levels_arr= Array(numberOfLevels).fill("");
     document.querySelector(".QuizzMakingChildren.Level").innerHTML = createLevels(userQuizz.levels); 
 }
-
 
 function createLevels(levels) {
     document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
@@ -335,7 +363,7 @@ function LevelScore (){
         const index = (min_value.length)-1-i;
         const value= min_value[index];
 
-        if (score >= Number(value)){
+        if (score >= parseInt(value)){
             document.querySelector(".level").innerHTML = `
             <div class="title">
                 ${score}% de acerto: ${currentQuizz.levels[index].title}
@@ -392,6 +420,10 @@ function verifyQuizzBasicInfo(title, imageURL, questions, levels) {
     if((title.length >= 20 && title.length <=65) && questions >= 3 && levels >= 2 && isValidWebUrl(imageURL)) {
         return true;
     }
+    return false;
+}
+
+function verifyQuizzQuestions() {
     return false;
 }
 
