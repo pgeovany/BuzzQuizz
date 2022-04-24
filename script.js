@@ -153,10 +153,10 @@ function LevelsQuizz(index,levelValue){
             </div>   
         </div>
         <div class="options ${openForm}">
-            <input class="userQuizzQuestionText" type="text" placeholder="Título do nível" id="">
-            <input class="userQuizzQuestionColour" type="text" placeholder="% de acerto mínima" id="">
-            <input class="userQuizzQuestionColour" type="text" placeholder="URL da imagem do nível" id="">
-            <input class="userQuizzQuestionColour" type="text" placeholder="Descrição do nível" id="">
+            <input class="userQuizzLevelTitle${index+1}" type="text" placeholder="Título do nível" id="">
+            <input class="userQuizzLevelMinValue${index+1}" type="text" placeholder="% de acerto mínima" id="">
+            <input class="userQuizzLevelImage${index+1}" type="text" placeholder="URL da imagem do nível" id="">
+            <input class="userQuizzLevelText${index+1}" type="text" placeholder="Descrição do nível" id="">
         </div>
     </div>  
     `;
@@ -171,6 +171,31 @@ function openOption(element){
     element.parentNode.parentNode.querySelector(".options").classList.add("displayOn");
     element.parentNode.parentNode.querySelector(".options").classList.remove("hidden");
 }
+
+
+
+function setQuizzLevels(){
+    userQuizz.levels=[];
+
+    for (let i=0; i<levels_arr.length; i++){
+        userQuizz.levels.push({
+            title:document.querySelector(`.userQuizzLevelTitle${i+1}`).value,
+            minValue:parseInt(document.querySelector(`.userQuizzLevelMinValue${i+1}`).value),
+            image:document.querySelector(`.userQuizzLevelImage${i+1}`).value,
+            text:document.querySelector(`.userQuizzLevelText${i+1}`).value
+        });
+    }
+    // console.log(userQuizz.levels);
+
+    // if (verifyQuizzLevels(userQuizz.levels.title,userQuizz.levels.minValue,userQuizz.levels.image,userQuizz.levels.text)){
+    //     quizzFinished();
+    // }else{
+    //     alert("Por favor, preencha os dados corretamente!");
+    // }
+    // return console.log(userQuizz.levels);
+} 
+
+
 
 
 //---------------------------------------------------------------------------------------
@@ -395,9 +420,21 @@ function verifyQuizzBasicInfo(title, imageURL, questions, levels) {
     return false;
 }
 
+// function verifyQuizzLevels(title,minValue,image,text){
+
+
+//     if((title.length >= 10) && (minValue >= 0 && minValue <= 100) && text.length>=30 && isValidWebUrl(image)) {
+
+//         return true;
+//     }
+//     return false;
+
+// }
+
 function isValidWebUrl(url) {
     let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
     return regEx.test(url);
 }
 
 //INPUT VALIDATION
+
