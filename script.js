@@ -93,7 +93,7 @@ function expandQuestion(element) {
 }
 
 function testQuizzQuestions() {
-    numberOfQuestions = 4;
+    numberOfQuestions = 3;
     renderQuizzQuestionsLayout();
     document.querySelector(".container").classList.add("hidden");
     document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
@@ -113,7 +113,6 @@ function setQuizzAnswers() {
     }
     console.log(userQuizz);
 
-
     if(verifyQuizzQuestions()) {
         document.querySelector(".QuizzMakingChildren.Questions").classList.add("hidden");
         document.querySelector(".QuizzMakingChildren.Level").classList.remove("hidden");
@@ -125,7 +124,18 @@ function setQuizzAnswers() {
 }
 
 function verifyQuizzQuestions() {
-    return false;
+    //testing the right answer
+    for(let i = 0; i < userQuizz.questions.length; i++){
+        // if(userQuizz.questions[i].answers[0].title.length < 20 || 
+        //     !isValidWebUrl(userQuizz.questions[i].answers[0].image)) {
+        //         return false;
+        //     }
+        console.log(userQuizz.questions[i].answers[0]);
+    }
+    // if(userQuizz.questions.answers[0].title.length < 20 || !isValidWebUrl(userQuizz.questions.answers[0].image)) {
+    //     return false;
+    // }
+    // return true;
 }
 
 function getQuizzAnswers() {
