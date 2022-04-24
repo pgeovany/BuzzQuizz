@@ -142,7 +142,7 @@ function createLevels(levels) {
     return `
         <h3>Agora, decida os níveis</h3>
         ${levelsQuizz.join("")}
-        <div onclick="quizzFinished()" class="button">Finalizar Quizz</div>
+        <div onclick="setQuizzLevels()" class="button">Finalizar Quizz</div>
     `;
 
 }
@@ -213,14 +213,14 @@ function setQuizzLevels(){
             text:document.querySelector(`.userQuizzLevelText${i+1}`).value
         });
     }
-    // console.log(userQuizz.levels);
+    console.log(userQuizz.levels);
 
-    // if (verifyQuizzLevels(userQuizz.levels.title,userQuizz.levels.minValue,userQuizz.levels.image,userQuizz.levels.text)){
-    //     quizzFinished();
-    // }else{
-    //     alert("Por favor, preencha os dados corretamente!");
-    // }
-    // return console.log(userQuizz.levels);
+    if (verifyQuizzLevels(userQuizz.levels)){
+        quizzFinished();
+    }else{
+        alert("Por favor, preencha os dados corretamente!");
+    }
+    return console.log(userQuizz.levels);
 } 
 
 
@@ -452,16 +452,32 @@ function verifyQuizzQuestions() {
     return false;
 }
 
-// function verifyQuizzLevels(title,minValue,image,text){
+function verifyQuizzLevels(levels){
+    const image=[];
+    const minValue=[];
+    const text =[];
+    const title =[]
 
+    for (let i=0; i<levels.length; i++){
+        image.push(levels[i].image);
+        minValue.push(levels[i].minValue);
+        text.push(levels[i].text);
+        title.push(levels[i].title);
+    }
 
-//     if((title.length >= 10) && (minValue >= 0 && minValue <= 100) && text.length>=30 && isValidWebUrl(image)) {
+    const imageURL = image.filter(isValidWebUrl);
+    const minValueZero = minValue.filter((value) => value === 0);
+    minValue.sort((a,b)=> a-b);
+    const text30 = text.filter((character)=> character.length>=30);
+    const title10= title.filter((character) => character.length>=10);
 
-//         return true;
-//     }
-//     return false;
+    if((minValue[0] >= 0 && minValue[minValue.length-1] <= 100) && minValueZero.length>0 && (text30.length===text.length) && (title10.length===title.length) && (imageURL.length===image.length)) {
 
-// }
+        return true;
+    }
+    return false;
+
+}
 
 function isValidWebUrl(url) {
     let regEx = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
