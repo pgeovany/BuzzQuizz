@@ -98,17 +98,17 @@ function testQuizzQuestions() {
     document.querySelector(".container").classList.add("hidden");
     document.querySelector(".QuizzMakingChildren.Questions").classList.remove("hidden");
 }
-testQuizzQuestions();
+//testQuizzQuestions();
 
 function setQuizzAnswers() {
     userQuizz.questions = [];
     
     for (let i = 0; i < numberOfQuestions; i++) {
-        let input = document.querySelector(`.QuizzInfo.question-${i+1}`);
+        let inputBox = document.querySelector(`.QuizzInfo.question-${i+1}`);
         userQuizz.questions.push({
-            title: input.querySelector(".userQuizzQuestionText").value,
-            color: input.querySelector(".userQuizzQuestionColour").value,
-            answers: getQuizzAnswers()
+            title: inputBox.querySelector(".userQuizzQuestionText").value,
+            color: inputBox.querySelector(".userQuizzQuestionColour").value,
+            answers: getQuizzAnswers(inputBox)
         })
     }
     console.log(userQuizz);
@@ -123,32 +123,32 @@ function setQuizzAnswers() {
     }
 }
 
-function verifyQuizzQuestions() {
-    //testing the right answer
-    for(let i = 0; i < userQuizz.questions.length; i++){
-        // if(userQuizz.questions[i].answers[0].title.length < 20 || 
-        //     !isValidWebUrl(userQuizz.questions[i].answers[0].image)) {
-        //         return false;
-        //     }
-        console.log(userQuizz.questions[i].answers[0]);
-    }
-    // if(userQuizz.questions.answers[0].title.length < 20 || !isValidWebUrl(userQuizz.questions.answers[0].image)) {
-    //     return false;
-    // }
-    // return true;
-}
+// function verifyQuizzQuestions() {
+//     //testing the right answer
+//     for(let i = 0; i < userQuizz.questions.length; i++){
+//         // if(userQuizz.questions[i].answers[0].title.length < 20 || 
+//         //     !isValidWebUrl(userQuizz.questions[i].answers[0].image)) {
+//         //         return false;
+//         //     }
+//         console.log(userQuizz.questions[i].answers[0]);
+//     }
+//     // if(userQuizz.questions.answers[0].title.length < 20 || !isValidWebUrl(userQuizz.questions.answers[0].image)) {
+//     //     return false;
+//     // }
+//     // return true;
+// }
 
-function getQuizzAnswers() {
+function getQuizzAnswers(inputBox) {
     let arr = [{
-        text: document.querySelector(".userQuizzRightAnswerText").value,
-        image: document.querySelector(".userQuizzRightAnswerURL").value,
+        text: inputBox.querySelector(".userQuizzRightAnswerText").value,
+        image: inputBox.querySelector(".userQuizzRightAnswerURL").value,
         isCorrectAnswer: true
     }];
     
     for(let i = 1; i < 4; i++) {
         arr.push({
-            text: document.querySelector(`.wrongAnswers .text-${i}`).value,
-            image: document.querySelector(`.wrongAnswers .image-${i}`).value,
+            text: inputBox.querySelector(`.wrongAnswers .text-${i}`).value,
+            image: inputBox.querySelector(`.wrongAnswers .image-${i}`).value,
             isCorrectAnswer: false
         })
     }
