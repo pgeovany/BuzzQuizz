@@ -30,6 +30,11 @@ function createNewQuizz() {
 }
 
 function setQuizzBasicInfo() {
+    userQuizz.title = "";
+    userQuizz.image = "";
+    numberOfQuestions = 0;
+    numberOfLevels = 0;
+
     userQuizz.title = document.querySelector(".QuizzMakingChildren.Info .userQuizzTitle").value;
     userQuizz.image = document.querySelector(".QuizzMakingChildren.Info .userQuizzImage").value;
     numberOfQuestions = parseInt(document.querySelector(".QuizzMakingChildren.Info .userQuizzNumberOfQuestions").value);
@@ -252,6 +257,7 @@ function renderQuizzSucess(id) {
 }
 
 function getQuizzId(id) {
+    document.querySelector(".QuizzMakingChildren.Success").classList.add("hidden");
     let promise = axios.get(`${API}/quizzes/${id}`);
     promise.then(playQuizz);
 }
@@ -285,6 +291,8 @@ function renderQuizzes(response) {
         }
     });
 
+    const otherQuizzes = quizzes.filter(item => !idsUser.includes(item.id));
+
     if (idsUser.length !== 0) {
         renderUserQuizzes(quizzesUser);
     }
@@ -292,14 +300,14 @@ function renderQuizzes(response) {
     let board = document.querySelector(".AllQuizzes .Quizzes");
     board.innerHTML = `
     `;
-    for (let i = 0; i < quizzes.length; i++) {
+    for (let i = 0; i < otherQuizzes.length; i++) {
         board.innerHTML += `
     <div onclick="getClickedQuizz(this)" class="Quizz">
-        <img src="${quizzes[i].image}" alt="quizz image">
+        <img src="${otherQuizzes[i].image}" alt="quizz image">
         <div class="img_bgd"></div>
         <div>
-            <h1>${quizzes[i].title}</h1>
-            <span class="id hidden">${quizzes[i].id}</span>
+            <h1>${otherQuizzes[i].title}</h1>
+            <span class="id hidden">${otherQuizzes[i].id}</span>
         </div>
     </div>
     `;
@@ -311,7 +319,6 @@ function renderUserQuizzes(quizzesUser) {
     document.querySelector(".userQuizzesFilled").classList.remove("hidden");
     let board = document.querySelector(".userQuizzesFilled .Quizzes");
 
-    console.log(quizzesUser);
     for (let i = 0; i < quizzesUser.length; i++) {
         board.innerHTML += `
             <div onclick="getClickedQuizz(this)" class="Quizz">
