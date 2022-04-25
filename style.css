@@ -237,13 +237,6 @@ aside{
     padding: 87px 0 ;
 }
 
-/* .questions, {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-} */
-
 .question, .level {
     width: 759px;
     /* height: 676px; */
@@ -484,7 +477,7 @@ aside{
 .QuizzInfo input:last-child {
     margin-bottom: 0;
 }
-/* --------------------------------------------------------------- */
+
 .QuizzMakingChildren .QuizzInfo .title{
     display: flex;
     justify-content: space-between;
@@ -495,17 +488,10 @@ aside{
     font-size: 26px ;
 }
 
-/* .options input{
-    flex-direction: column;
-    width:100%;
-} */
-
 .options {
     display: flex;
     flex-direction: column;
 }
-
-/* --------------------------------------------------------------- */
 
 .QuizzMaking .question,
 .QuizzMaking .level {
@@ -617,10 +603,6 @@ aside{
         justify-content: space-around;
         margin-top: 12px;
     }
-
-    /* .Quizz{
-        width: 100%;
-    } */
 
     .AllQuizzes>h3 {
         margin-left: 5%;
