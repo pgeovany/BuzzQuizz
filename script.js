@@ -19,6 +19,7 @@ let userQuizz = {
 let numberOfQuestions=0;
 let numberOfLevels=0;
 let levels_arr=[];
+const persisted_quizzes_key = "quizzes_key";
 
 
 function reloadPage() {
@@ -139,19 +140,6 @@ function getQuizzAnswers(inputBox) {
     return arr;
 }
 
-//-------------------------------------------------------------------------------------
-// function populateAnswersArray() {
-//     let arr = [];
-//     for(let i=0; i < 4; i++) {
-//         arr[i] = {
-//             text:"",
-//             image:"",
-//             isCorrectAnswer: false
-//         }
-//     }
-//     return arr;
-// }
-
 //----------------------------------------LEVELS---------------------------------------------
 
 function renderQuizzLevels(){
@@ -261,7 +249,8 @@ function setQuizzLevels(){
         
         promise.then(response => {
             const createdQuizz = response.data;
-            // persistQuizz(createdQuizz);
+            persistQuizz(createdQuizz);
+            console.log(createdQuizz);
             document.querySelector(".QuizzMakingChildren.Success").innerHTML = renderQuizzSucess(createdQuizz.id);
         })
     }
@@ -300,8 +289,27 @@ function getQuizzes() {
 
 function renderQuizzes(response) {
     quizzes = response.data;
+    //-----------------------------------------------------------------------------------
+    const persistedQuizzes = getPersistedQuizzes();
+    const idsUser = persistedQuizzes.map((item)=>item.id);
+    
+    const quizzesUser = quizzes.filter(item => idsUser.includes(item.id)).map(quizz=>{
+        const persistedInfos = persistedQuizzes.find(item => item.id === quizz.id);
+        return {
+            id: quizz.id,
+            title: quizz.title,  
+            image: quizz.image,
+            questions:quizz.questions,
+            levels:quizz.levels,
+            key:item.key
+        }
+    });
+
+    //-------------------------------------------------------------------------------------
+    
     let board = document.querySelector(".AllQuizzes .Quizzes");
-    board.innerHTML = "";
+    board.innerHTML = `
+    `;
     for(let i = 0; i < quizzes.length; i++) {
     board.innerHTML +=`
     <div onclick="getClickedQuizz(this)" class="Quizz">
@@ -563,7 +571,7 @@ function verifyQuizzLevels(levels){
         text.push(levels[i].text);
         title.push(levels[i].title);
     }
-// function verifyQuizzLevels(title,minValue,image,text){
+
 
     const imageURL = image.filter(isValidWebUrl);
     const minValueZero = minValue.filter((value) => value === 0);
@@ -591,16 +599,26 @@ function isValidWebUrl(url) {
 
 //LOCAL STORAGE
 
-// function persistQuizz(createdQuizz){
-//     const persisted_quizzes=
-//     persisted_quizzes.push({
-//         id:createdQuizz.id,
+function persistQuizz(createdQuizz){
+    const persisted_quizzes= getPersistedQuizzes();
+    persisted_quizzes.push({
+        id:createdQuizz.id,
+        key:createdQuizz.key
+    });
 
+    const serialized = JSON.stringify(persisted_quizzes);
+    
+    localStorage.setItem(persisted_quizzes_key,serialized);
+}
 
-//     })
-// }
+function getPersistedQuizzes(){
+    let quizzes_JSON =localStorage.getItem(persisted_quizzes_key);
 
-// function getPersisted(){
-
-// }
+    if (quizzes_JSON !== null){
+        const desSerialized = JSON.parse(quizzes_JSON);
+        return desSerialized;
+    }else{
+        return [];
+    }
+}
 
