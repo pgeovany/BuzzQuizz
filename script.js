@@ -139,19 +139,6 @@ function getQuizzAnswers(inputBox) {
     return arr;
 }
 
-//-------------------------------------------------------------------------------------
-// function populateAnswersArray() {
-//     let arr = [];
-//     for(let i=0; i < 4; i++) {
-//         arr[i] = {
-//             text:"",
-//             image:"",
-//             isCorrectAnswer: false
-//         }
-//     }
-//     return arr;
-// }
-
 //----------------------------------------LEVELS---------------------------------------------
 
 function renderQuizzLevels(){
@@ -261,6 +248,7 @@ function setQuizzLevels(){
         
         promise.then(response => {
             const createdQuizz = response.data;
+            // persistQuizz(createdQuizz);
             document.querySelector(".QuizzMakingChildren.Success").innerHTML = renderQuizzSucess(createdQuizz.id);
         })
     }
@@ -522,7 +510,7 @@ function verifyQuizzQuestions() {
     })
 
     for(let i = 0; i < userQuizz.questions.length; i++) {
-         //verifying if the questions title has the right length and whether the colour is a valid HEX colour
+         //verifying if the questions title have the right length and whether the colour is a valid HEX colour
          if(userQuizz.questions[i].title < 20 || !isValidColor(userQuizz.questions[i].color)){
             //console.log("falhei no tamanho do título ou na cor");
             return false;
@@ -536,6 +524,7 @@ function verifyQuizzQuestions() {
     }
 
     //verifiying if the user has set at least one right answer and one wrong answer
+    //for every question
     if(filledAnswers.length < numberOfQuestions*2) {
         //console.log("falhei no número mínimo de respostas");
         return false;
@@ -588,5 +577,18 @@ function isValidWebUrl(url) {
     return regEx.test(url);
 }
 
-//INPUT VALIDATION
+//LOCAL STORAGE
+
+// function persistQuizz(createdQuizz){
+//     const persisted_quizzes=
+//     persisted_quizzes.push({
+//         id:createdQuizz.id,
+
+
+//     })
+// }
+
+// function getPersisted(){
+
+// }
 
