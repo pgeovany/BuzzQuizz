@@ -142,6 +142,9 @@ function getQuizzAnswers(inputBox) {
 
 //----------------------------------------LEVELS---------------------------------------------
 
+// numberOfLevels = 2;
+// renderQuizzLevels();
+
 function renderQuizzLevels(){
     levels_arr= Array(numberOfLevels).fill("");
     document.querySelector(".QuizzMakingChildren.Level").innerHTML = createLevels(userQuizz.levels); 
@@ -196,7 +199,7 @@ function LevelsQuizz(index,levelValue){
             <input class="userQuizzLevelTitle${index+1}" type="text" placeholder="Título do nível" id="">
             <input class="userQuizzLevelMinValue${index+1}" type="text" placeholder="% de acerto mínima" id="">
             <input class="userQuizzLevelImage${index+1}" type="text" placeholder="URL da imagem do nível" id="">
-            <input class="userQuizzLevelText${index+1}" type="text" placeholder="Descrição do nível" id="">
+            <input class="userQuizzLevelText${index+1} level-mobile" type="text" placeholder="Descrição do nível" id="">
         </div>
     </div>  
     `;
@@ -518,7 +521,8 @@ function verifyQuizzQuestions() {
         for (let j = 0; j < userQuizz.questions[i].answers.length; j++) {
             answersAux.push({
                 text: userQuizz.questions[i].answers[j].text,
-                image: userQuizz.questions[i].answers[j].image
+                image: userQuizz.questions[i].answers[j].image,
+                isCorrectAnswer: userQuizz.questions[i].answers[j].isCorrectAnswer
             })
         }
     }
@@ -530,21 +534,24 @@ function verifyQuizzQuestions() {
         return false;
     })
 
+    //verifying if the questions title have the right length and whether the colour is a valid HEX colour
     for(let i = 0; i < userQuizz.questions.length; i++) {
-         //verifying if the questions title has the right length and whether the colour is a valid HEX colour
          if(userQuizz.questions[i].title < 20 || !isValidColor(userQuizz.questions[i].color)){
             //console.log("falhei no tamanho do título ou na cor");
             return false;
         }
-        //verifiying if every right answer is set
-        if(userQuizz.questions[i].answers[correctAnswer].text === "" || 
-        !isValidWebUrl(userQuizz.questions[i].answers[correctAnswer].image)) {
-            //console.log("falhei na verificação das respostas certas");
-            return false;
-        }
+    }
+    //verifiying if every right answer is set
+    for (let i = 0; i < userQuizz.questions.length; i++) {
+          if(userQuizz.questions[i].answers[correctAnswer].text === "" || 
+          !isValidWebUrl(userQuizz.questions[i].answers[correctAnswer].image)) {
+              //console.log("falhei na verificação das respostas certas");
+              return false;
+          }
     }
 
     //verifiying if the user has set at least one right answer and one wrong answer
+    //for every question
     if(filledAnswers.length < numberOfQuestions*2) {
         //console.log("falhei no número mínimo de respostas");
         return false;
@@ -556,6 +563,19 @@ function verifyQuizzQuestions() {
             return false;
         }
    }
+    for(let i = 0; i < userQuizz.questions.length; i++) {
+        for (let j = 0; j < userQuizz.questions[i].answers.length; j++) {
+            userQuizz.questions[i].answers = 
+            userQuizz.questions[i].answers.filter(item => {
+                if(item.text === "" || item.image === "") {
+                    return false;
+                }
+                return true;
+            })
+        }
+    }
+
+    console.log(userQuizz.questions);
     return true;
 }
 
