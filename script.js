@@ -141,6 +141,9 @@ function getQuizzAnswers(inputBox) {
 
 //----------------------------------------LEVELS---------------------------------------------
 
+// numberOfLevels = 2;
+// renderQuizzLevels();
+
 function renderQuizzLevels(){
     levels_arr= Array(numberOfLevels).fill("");
     document.querySelector(".QuizzMakingChildren.Level").innerHTML = createLevels(userQuizz.levels); 
@@ -195,7 +198,7 @@ function LevelsQuizz(index,levelValue){
             <input class="userQuizzLevelTitle${index+1}" type="text" placeholder="Título do nível" id="">
             <input class="userQuizzLevelMinValue${index+1}" type="text" placeholder="% de acerto mínima" id="">
             <input class="userQuizzLevelImage${index+1}" type="text" placeholder="URL da imagem do nível" id="">
-            <input class="userQuizzLevelText${index+1}" type="text" placeholder="Descrição do nível" id="">
+            <input class="userQuizzLevelText${index+1} level-mobile" type="text" placeholder="Descrição do nível" id="">
         </div>
     </div>  
     `;

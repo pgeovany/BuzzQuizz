@@ -500,6 +500,11 @@ aside{
     width:100%;
 } */
 
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
 /* --------------------------------------------------------------- */
 
 .QuizzMaking .question,
@@ -572,6 +577,10 @@ aside{
     margin-top: 40px;
 }
 
+.level-mobile {
+    height: 180px;
+}
+
 /* QUIZZ CREATION */
 
 .hidden {
@@ -579,7 +588,7 @@ aside{
 }
 
 .displayOn{
-    display: initial;
+    display: flex;
 }
 
 @media (max-width: 1100px){
@@ -704,5 +713,17 @@ aside{
         margin-right: auto;
     }
 
-    /* QUIZZ CREATION */
+    .QuizzMakingChildren.Level .level-mobile {
+        height: 180px;
+    }
+    
+    .options input:last-child {
+        position: relative;
+    }
+
+    .options input:last-child::placeholder {
+        padding-top: 10px;
+        position: absolute;
+    }
+   /* QUIZZ CREATION */
 }
