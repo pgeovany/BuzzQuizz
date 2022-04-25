@@ -261,6 +261,7 @@ function setQuizzLevels(){
         
         promise.then(response => {
             const createdQuizz = response.data;
+            // persistQuizz(createdQuizz);
             document.querySelector(".QuizzMakingChildren.Success").innerHTML = renderQuizzSucess(createdQuizz.id);
         })
     }
@@ -588,5 +589,18 @@ function isValidWebUrl(url) {
     return regEx.test(url);
 }
 
-//INPUT VALIDATION
+//LOCAL STORAGE
+
+// function persistQuizz(createdQuizz){
+//     const persisted_quizzes=
+//     persisted_quizzes.push({
+//         id:createdQuizz.id,
+
+
+//     })
+// }
+
+// function getPersisted(){
+
+// }
 
