@@ -497,7 +497,8 @@ function verifyQuizzQuestions() {
         for (let j = 0; j < userQuizz.questions[i].answers.length; j++) {
             answersAux.push({
                 text: userQuizz.questions[i].answers[j].text,
-                image: userQuizz.questions[i].answers[j].image
+                image: userQuizz.questions[i].answers[j].image,
+                isCorrectAnswer: userQuizz.questions[i].answers[j].isCorrectAnswer
             })
         }
     }
@@ -509,18 +510,20 @@ function verifyQuizzQuestions() {
         return false;
     })
 
+    //verifying if the questions title have the right length and whether the colour is a valid HEX colour
     for(let i = 0; i < userQuizz.questions.length; i++) {
-         //verifying if the questions title have the right length and whether the colour is a valid HEX colour
          if(userQuizz.questions[i].title < 20 || !isValidColor(userQuizz.questions[i].color)){
             //console.log("falhei no tamanho do título ou na cor");
             return false;
         }
-        //verifiying if every right answer is set
-        if(userQuizz.questions[i].answers[correctAnswer].text === "" || 
-        !isValidWebUrl(userQuizz.questions[i].answers[correctAnswer].image)) {
-            //console.log("falhei na verificação das respostas certas");
-            return false;
-        }
+    }
+    //verifiying if every right answer is set
+    for (let i = 0; i < userQuizz.questions.length; i++) {
+          if(userQuizz.questions[i].answers[correctAnswer].text === "" || 
+          !isValidWebUrl(userQuizz.questions[i].answers[correctAnswer].image)) {
+              //console.log("falhei na verificação das respostas certas");
+              return false;
+          }
     }
 
     //verifiying if the user has set at least one right answer and one wrong answer
@@ -536,6 +539,19 @@ function verifyQuizzQuestions() {
             return false;
         }
    }
+    for(let i = 0; i < userQuizz.questions.length; i++) {
+        for (let j = 0; j < userQuizz.questions[i].answers.length; j++) {
+            userQuizz.questions[i].answers = 
+            userQuizz.questions[i].answers.filter(item => {
+                if(item.text === "" || item.image === "") {
+                    return false;
+                }
+                return true;
+            })
+        }
+    }
+
+    console.log(userQuizz.questions);
     return true;
 }
 
